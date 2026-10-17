@@ -1,0 +1,355 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(uuid())
+  email          String    @unique
+  passwordHash   String
+  name           String
+  role           String    @default("user")
+  theme          String    @default("system")
+  emailVerified  Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  decisions      Decision[]
+  auditEvents    AuditEvent[]
+  importJobs     ImportJob[]
+  sharesCreated  DecisionShare[] @relation("ShareCreatedBy")
+  sharesReceived DecisionShare[] @relation("ShareRecipient")
+  workflows      Workflow[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model Decision {
+  id          String           @id @default(uuid())
+  ownerId     String
+  title       String
+  description String?
+  category    String           @default("other")
+  status      String           @default("draft")
+  question    String
+  deadline    DateTime?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  owner       User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  alternatives Alternative[]
+  criteria    Criterion[]
+  outcomes    Outcome[]
+  scenarios   Scenario[]
+  shares      DecisionShare[]
+
+  @@index([ownerId])
+  @@index([status])
+  @@index([category])
+  @@index([createdAt])
+}
+
+model Alternative {
+  id          String    @id @default(uuid())
+  decisionId  String
+  title       String
+  description String?
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  decision    Decision    @relation(fields: [decisionId], references: [id], onDelete: Cascade)
+  outcomes    Outcome[]
+  simulationResults SimulationResult[]
+
+  @@index([decisionId])
+  @@index([decisionId, order])
+}
+
+model Criterion {
+  id          String    @id @default(uuid())
+  decisionId  String
+  name        String
+  description String?
+  weight      Float     @default(1)
+  direction   String    @default("maximize")
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  decision    Decision    @relation(fields: [decisionId], references: [id], onDelete: Cascade)
+
+  @@index([decisionId])
+  @@index([decisionId, order])
+}
+
+model Outcome {
+  id              String    @id @default(uuid())
+  alternativeId   String
+  decisionId      String
+  title           String
+  description     String?
+  probability     Float
+  monetaryPayoff  Float?
+  utilityScore    Float?
+  riskLevel       String    @default("low")
+  order           Int       @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  alternative     Alternative @relation(fields: [alternativeId], references: [id], onDelete: Cascade)
+  decision        Decision    @relation(fields: [decisionId], references: [id], onDelete: Cascade)
+
+  @@index([alternativeId])
+  @@index([decisionId])
+  @@index([alternativeId, order])
+}
+
+model Scenario {
+  id                String    @id @default(uuid())
+  decisionId        String
+  name              String
+  description       String?
+  isBaseline        Boolean   @default(false)
+  parentScenarioId  String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  decision          Decision    @relation(fields: [decisionId], references: [id], onDelete: Cascade)
+  parentScenario    Scenario?   @relation("ScenarioHierarchy", fields: [parentScenarioId], references: [id], onDelete: SetNull)
+  childScenarios    Scenario[]  @relation("ScenarioHierarchy")
+  inputs            ScenarioInput[]
+  simulationRuns    SimulationRun[]
+
+  @@index([decisionId])
+  @@index([decisionId, isBaseline])
+  @@index([parentScenarioId])
+}
+
+model ScenarioInput {
+  id          String    @id @default(uuid())
+  scenarioId  String
+  entityType  String
+  entityId    String
+  field       String
+  value       String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  scenario    Scenario  @relation(fields: [scenarioId], references: [id], onDelete: Cascade)
+
+  @@index([scenarioId])
+  @@unique([scenarioId, entityType, entityId, field])
+}
+
+model SimulationRun {
+  id               String    @id @default(uuid())
+  scenarioId       String
+  algorithmVersion String
+  inputSnapshot    String
+  status           String    @default("pending")
+  error            String?
+  startedAt        DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime  @default(now())
+
+  scenario         Scenario  @relation(fields: [scenarioId], references: [id], onDelete: Cascade)
+  results          SimulationResult[]
+
+  @@index([scenarioId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model SimulationResult {
+  id                String   @id @default(uuid())
+  simulationRunId   String
+  alternativeId     String
+  weightedScore     Float?
+  expectedMonetaryValue Float?
+  expectedUtility   Float?
+  bestCase          Float?
+  worstCase         Float?
+  riskMetrics       String?
+  sensitivityData   String?
+  rank              Int?
+  details           String?
+  createdAt         DateTime @default(now())
+
+  simulationRun     SimulationRun @relation(fields: [simulationRunId], references: [id], onDelete: Cascade)
+  alternative       Alternative   @relation(fields: [alternativeId], references: [id], onDelete: Cascade)
+
+  @@index([simulationRunId])
+  @@index([alternativeId])
+  @@unique([simulationRunId, alternativeId])
+}
+
+model DecisionShare {
+  id              String    @id @default(uuid())
+  decisionId      String
+  shareToken      String    @unique
+  recipientEmail  String?
+  accessLevel     String    @default("view")
+  expiresAt       DateTime?
+  createdAt       DateTime  @default(now())
+  createdBy       String
+
+  decision        Decision  @relation(fields: [decisionId], references: [id], onDelete: Cascade)
+  creator         User      @relation("ShareCreatedBy", fields: [createdBy], references: [id], onDelete: Cascade)
+  recipient       User?     @relation("ShareRecipient", fields: [recipientEmail], references: [email], onDelete: SetNull)
+
+  @@index([decisionId])
+  @@index([shareToken])
+  @@index([recipientEmail])
+  @@index([expiresAt])
+}
+
+model AuditEvent {
+  id          String    @id @default(uuid())
+  actorId     String
+  action      String
+  entityType  String
+  entityId    String?
+  metadata    String?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime  @default(now())
+
+  actor       User      @relation(fields: [actorId], references: [id], onDelete: Cascade)
+
+  @@index([actorId])
+  @@index([action])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
+
+model ImportJob {
+  id                String    @id @default(uuid())
+  ownerId           String
+  fileName          String
+  fileSize          Int
+  status            String    @default("pending")
+  validationSummary String?
+  errorReport       String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  completedAt       DateTime?
+
+  owner             User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@index([ownerId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Workflow {
+  id          String    @id @default(uuid())
+  ownerId     String
+  title       String
+  description String?
+  version     Int       @default(1)
+  status      String    @default("draft")
+  isTemplate  Boolean   @default(false)
+  templateId  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  owner       User              @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  nodes       WorkflowNode[]
+  edges       WorkflowEdge[]
+  runs        WorkflowRun[]
+  template    Workflow?         @relation("WorkflowTemplate", fields: [templateId], references: [id], onDelete: SetNull)
+  templates   Workflow[]        @relation("WorkflowTemplate")
+
+  @@index([ownerId])
+  @@index([isTemplate])
+  @@index([templateId])
+  @@index([updatedAt])
+}
+
+model WorkflowNode {
+  id            String    @id @default(uuid())
+  workflowId    String
+  type          String
+  title         String
+  description   String?
+  positionX     Float
+  positionY     Float
+  width         Float?
+  height        Float?
+  config        String
+  schemaVersion Int       @default(1)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  workflow      Workflow       @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  sourceEdges   WorkflowEdge[] @relation("SourceNode")
+  targetEdges   WorkflowEdge[] @relation("TargetNode")
+
+  @@index([workflowId])
+  @@index([type])
+}
+
+model WorkflowEdge {
+  id            String    @id @default(uuid())
+  workflowId    String
+  sourceNodeId  String
+  targetNodeId  String
+  sourceHandle  String?
+  targetHandle  String?
+  label         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  workflow      Workflow      @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  sourceNode    WorkflowNode  @relation("SourceNode", fields: [sourceNodeId], references: [id], onDelete: Cascade)
+  targetNode    WorkflowNode  @relation("TargetNode", fields: [targetNodeId], references: [id], onDelete: Cascade)
+
+  @@index([workflowId])
+  @@index([sourceNodeId])
+  @@index([targetNodeId])
+  @@unique([workflowId, sourceNodeId, targetNodeId, sourceHandle, targetHandle])
+}
+
+model WorkflowRun {
+  id              String    @id @default(uuid())
+  workflowId      String
+  status          String    @default("pending")
+  error           String?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  inputSnapshot   String?
+  outputSnapshot  String?
+
+  workflow        Workflow              @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  nodeResults     WorkflowNodeResult[]
+
+  @@index([workflowId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model WorkflowNodeResult {
+  id            String    @id @default(uuid())
+  runId         String
+  nodeId        String
+  status        String
+  inputData     String?
+  outputData    String?
+  error         String?
+  startedAt     DateTime?
+  completedAt   DateTime?
+  durationMs    Int?
+  createdAt     DateTime  @default(now())
+
+  run           WorkflowRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@index([runId])
+  @@index([nodeId])
+}
