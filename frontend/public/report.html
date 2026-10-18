@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMOC — Complete Platform Report & Operating Manual (10 Pages)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #2563eb;
+      --accent: #0284c7;
+      --accent-teal: #0d9488;
+      --bg-page: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Fixed Top Action Bar */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #2563eb, #0284c7, #0d9488);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .brand-text h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .action-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary-light);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #f8fafc;
+      color: #334155;
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    /* Container */
+    .document-wrapper {
+      max-width: 900px;
+      margin: 32px auto 60px;
+      padding: 0 16px;
+    }
+
+    /* Page Sheet (Simulates 10 Printed Pages) */
+    .page-sheet {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      padding: 48px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    .page-badge {
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Headings */
+    h1.doc-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .doc-subtitle {
+      font-size: 15px;
+      color: #4f46e5;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    h2.section-heading {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-top: 20px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    h3.sub-heading {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-light);
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    h4.tertiary-heading {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #334155;
+      margin-bottom: 12px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      font-size: 13.5px;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    li strong {
+      color: #0f172a;
+    }
+
+    /* Callout Box */
+    .callout {
+      background: #f0fdf4;
+      border-left: 4px solid var(--accent-teal);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .callout-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-teal);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .callout-body {
+      font-size: 13px;
+      color: #166534;
+      font-weight: 500;
+    }
+
+    .callout-blue {
+      background: #eff6ff;
+      border-left-color: var(--primary-light);
+    }
+
+    .callout-blue .callout-title {
+      color: var(--primary-light);
+    }
+
+    .callout-blue .callout-body {
+      color: #1e40af;
+    }
+
+    /* Equation Block */
+    .equation-block {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin: 14px 0;
+      text-align: center;
+    }
+
+    .equation-math {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #0f172a;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    .equation-desc {
+      font-size: 11.5px;
+      color: #64748b;
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    /* Styled Tables */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 12.5px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .styled-table th {
+      background: var(--primary);
+      color: #ffffff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .styled-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: #334155;
+    }
+
+    .styled-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .styled-table tr:hover {
+      background: #f1f5f9;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+    .badge-amber { background: #fef3c7; color: #b45309; }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .top-bar {
+        display: none !important;
+      }
+      .document-wrapper {
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+      }
+      .page-sheet {
+        page-break-after: always;
+        box-shadow: none;
+        border: none;
+        padding: 24px;
+        margin: 0;
+      }
+      .page-badge {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Action Bar -->
+  <header class="top-bar">
+    <div class="brand-group">
+      <div class="brand-logo">DM</div>
+      <div class="brand-text">
+        <h1>DMOC — Decision Marketing Operating System</h1>
+        <p>Official 10-Page System Report & Complete Operating Manual (v3.0.0)</p>
+      </div>
+    </div>
+    <div class="action-group">
+      <button class="btn btn-secondary" onclick="window.print()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2m-4 0v4H8v-4m8-10H8v4h8V8z"></path></svg>
+        Print / Save as PDF
+      </button>
+      <a class="btn btn-primary" href="/DMOC_Platform_Report_and_User_Manual.docx" download>
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        Download Word File (.docx)
+      </a>
+    </div>
+  </header>
+
+  <div class="document-wrapper">
+
+    <!-- ==========================================
+         PAGE 1: TITLE & EXECUTIVE SUMMARY
+         ========================================== -->
+    <article class="page-sheet" id="page-1">
+      <div class="page-badge">Page 1 of 10</div>
+
+      <h1 class="doc-title">DMOC: Comprehensive Platform Report & Complete Operating Manual</h1>
+      <p class="doc-subtitle">Decision Marketing Operating System • Multi-Store Modeling, Inventory Analytics & Visual Workflow Engine</p>
+
+      <table class="styled-table" style="margin-bottom: 24px;">
+        <tbody>
+          <tr>
+            <td style="width: 25%; font-weight: bold; background: #f8fafc;">Document Version</td>
+            <td><strong>3.0.0</strong> (Comprehensive Technical & Operational Standard)</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #f8fafc;">Classification</td>
+            <td>Full System Architecture, Mathematical Foundations & User Operating Manual</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #f8fafc;">Platform Status</td>
+            <td><span class="badge badge-green">Production Ready & Validated</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #f8fafc;">Target Audience</td>
+            <td>Store Owners, Business Analysts, Decision Scientists, Enterprise Retailers, Software Engineers</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; background: #f8fafc;">GitHub Repository</td>
+            <td><a href="https://github.com/hardik33217/DMOC.git" target="_blank" style="color: #2563eb; text-decoration: none; font-weight: 600;">https://github.com/hardik33217/DMOC.git</a> (Branch: main)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-heading">1. Executive Summary & Core Mission</h2>
+
+      <h3 class="sub-heading">1.1 The Operational Crisis in Retail & Store Decision-Making</h3>
+      <p>Modern enterprise retail, pharmacy management, grocery commerce, and quick-delivery logistics operate under tight margins, fluctuating lead times, and intense demand volatility. Store owners and procurement officers face three critical challenges:</p>
+      <ul>
+        <li><strong>Intuition-Driven Procurement Errors:</strong> Store managers routinely reorder stock based on recent customer memory or subjective hunches rather than empirical sales velocity, lead-time variance, and holding carrying costs. This leads to severe stockouts during peak surges or massive cash lockup in dead inventory.</li>
+        <li><strong>Gross vs. Net Profit Confusion:</strong> Standard accounting software itemizes gross margins on individual product sales but fails to incorporate daily store operating overhead (rent, electricity, refrigeration, staff wages, insurance) during order evaluation. Procurement that appears profitable on paper frequently generates net cash losses.</li>
+        <li><strong>Disconnected & Static Spreadsheets:</strong> Store teams rely on fragile, disconnected spreadsheets that lack live catalog data, cannot model stochastic risks, ignore regulatory restrictions (such as Indian NPPA DPCO drug price ceilings or Schedule H prescription mandates), and cannot be shared securely across store branches.</li>
+      </ul>
+
+      <h3 class="sub-heading">1.2 The Mission & Architectural Mandate of DMOC</h3>
+      <p><strong>DMOC (Decision Marketing Operating System)</strong> unites rigorous decision science, real-world catalog and regulatory APIs, inventory mechanics, and reactive visual workflows into a unified platform. DMOC's primary objectives are:</p>
+      <ul>
+        <li><strong>Democratize Decision Science:</strong> Provides store managers and enterprise analysts with Multi-Criteria Decision Analysis (MCDA), Expected Monetary Value (EMV), Expected Utility Theory, and 10,000-run Monte Carlo stochastic simulations.</li>
+        <li><strong>Real-World Catalog & Regulatory Ingestion:</strong> Connects directly with Open Food Facts for grocery and FMCG barcode validation, and official NPPA / CDSCO registries for pharmaceutical maximum price ceilings and prescription compliance.</li>
+        <li><strong>Visual Node-Based Decision Canvas:</strong> Allows non-technical operators to build non-linear computational flow graphs with 26 modular nodes, conditional if/else branching, and real-time execution tracing.</li>
+        <li><strong>Transparent & Auditable Intelligence:</strong> Provides plain-language reasoning chains, interactive 3D spatial trees, break-even unit calculations, and printable executive briefs.</li>
+      </ul>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">Core Philosophical Commitment</div>
+        <div class="callout-body">
+          DMOC strictly distinguishes Gross Profit from Net Profit. Operating costs (store rent, electricity, wages, and logistics) are never assumed to be zero in any procurement or replenishment evaluation.
+        </div>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         PAGE 2: THEORETICAL FOUNDATIONS & DECISION SCIENCE
+         ========================================== -->
+    <article class="page-sheet" id="page-2">
+      <div class="page-badge">Page 2 of 10</div>
+
+      <h2 class="section-heading">2. Theoretical Foundations & Mathematical Decision Science</h2>
+      <p>DMOC is built upon established, peer-reviewed mathematical methodologies implemented in the core calculation engine (<code>decisionEngine.ts</code>). Every calculation is auditable, deterministic where required, and statistically robust.</p>
+
+      <h3 class="sub-heading">2.1 Multi-Criteria Decision Analysis (MCDA)</h3>
+      <p>Multi-Criteria Decision Analysis evaluates competing options across multiple orthogonal criteria, each assigned a relative percentage weight <code>w_j</code> such that the sum of all weights equals 100%:</p>
+      <div class="equation-block">
+        <div class="equation-math">∑ (from j=1 to m) w_j = 100%,  where w_j > 0</div>
+        <div class="equation-desc">Weight Normalization Constraint Across All Evaluation Dimensions</div>
+      </div>
+
+      <h4 class="tertiary-heading">Linear Normalization</h4>
+      <p>Criteria can represent either maximization (e.g., net revenue, shelf velocity, supplier reliability) or minimization (e.g., wholesale unit cost, return rate, working capital risk). DMOC maps disparate physical and financial units into dimensionless normalized utility values <code>r_ij ∈ [0, 1]</code>:</p>
+      <div class="equation-block">
+        <div class="equation-math">Maximization:  r_ij = (x_ij - x_j^min) / (x_j^max - x_j^min)
+Minimization:   r_ij = (x_j^max - x_ij) / (x_j^max - x_j^min)</div>
+        <div class="equation-desc">Linear Utility Transformation (Handles zero-variance edge cases by assigning r_ij = 1.0)</div>
+      </div>
+
+      <h4 class="tertiary-heading">Weighted Sum Model (WSM)</h4>
+      <p>The composite performance score <code>S_i</code> for each competing alternative <code>i</code> is calculated as:</p>
+      <div class="equation-block">
+        <div class="equation-math">S_i = ∑ (from j=1 to m) w_j · r_ij</div>
+        <div class="equation-desc">Aggregate Weighted Performance Score Determining Optimal Choice</div>
+      </div>
+
+      <h3 class="sub-heading">2.2 Expected Monetary Value (EMV)</h3>
+      <p>Under conditions of risk and discrete uncertainty, each alternative <code>i</code> produces a set of mutually exclusive potential outcomes <code>O_ik</code>, each associated with an empirical probability <code>P(O_ik)</code> and monetary payoff <code>X_ik</code>:</p>
+      <div class="equation-block">
+        <div class="equation-math">EMV_i = ∑ (from k=1 to K) P(O_ik) · X_ik,  where ∑ P(O_ik) = 1.0</div>
+        <div class="equation-desc">Expected Monetary Value Formula</div>
+      </div>
+
+      <h3 class="sub-heading">2.3 Expected Utility Theory (von Neumann–Morgenstern)</h3>
+      <p>In retail and inventory procurement, monetary value does not scale linearly with psychological satisfaction due to asymmetric downside risk aversion. A loss of $10,000 can cause bankruptcy, whereas a gain of $10,000 provides modest growth. DMOC maps monetary payoffs or qualitative outcomes to utility values <code>U(O_ik) ∈ [0, 100]</code>:</p>
+      <div class="equation-block">
+        <div class="equation-math">EU_i = ∑ (from k=1 to K) P(O_ik) · U(O_ik)</div>
+        <div class="equation-desc">Risk-Averse Expected Utility Formulation</div>
+      </div>
+
+      <h3 class="sub-heading">2.4 Monte Carlo Stochastic Risk Simulation</h3>
+      <p>Real-world sales demand and supplier delivery windows are stochastic rather than fixed. DMOC executes a high-speed pseudo-random Monte Carlo engine running up to 10,000 iterations per scenario:</p>
+      <ul>
+        <li><strong>Probability Distribution Sampling:</strong> Draws random values across parameterized normal, uniform, or triangular distributions representing customer footfall and supplier fulfillment delays.</li>
+        <li><strong>Empirical Percentile Estimation:</strong> Computes empirical percentiles including P10 (Pessimistic Downside with 90% confidence), P50 (Median Baseline), and P90 (Optimistic High-Demand Ceiling).</li>
+        <li><strong>Statistical Moments:</strong> Calculates mean expected return μ, variance σ², standard deviation σ, and value-at-risk (VaR).</li>
+      </ul>
+
+      <h3 class="sub-heading">2.5 Sensitivity Analysis & Tipping Points</h3>
+      <p>DMOC systematically perturbs individual criterion weights <code>w_j</code> from 0% to 100% while proportionately scaling remaining weights. It detects tipping points—the exact numerical weight threshold where the leading business recommendation flips to a competing alternative.</p>
+    </article>
+
+    <!-- ==========================================
+         PAGE 3: FINANCIAL & INVENTORY MECHANICS
+         ========================================== -->
+    <article class="page-sheet" id="page-3">
+      <div class="page-badge">Page 3 of 10</div>
+
+      <h2 class="section-heading">3. Financial & Inventory Mechanics</h2>
+      <p>Store decisions must reflect financial reality. DMOC executes strict mathematical accounting across every inventory restock, pricing adjustment, and supplier order.</p>
+
+      <h3 class="sub-heading">3.1 Gross Profit vs. Net Profit Breakdown</h3>
+      <p>Traditional retail tools mislead store owners by displaying high gross margins while ignoring fixed store overhead. DMOC requires and calculates both:</p>
+      <div class="equation-block">
+        <div class="equation-math">Gross Revenue = Units Sold × Selling Price
+Cost of Goods Sold (COGS) = Units Sold × Purchase Price
+Gross Profit = Gross Revenue - COGS
+Gross Margin % = (Gross Profit / Gross Revenue) × 100</div>
+        <div class="equation-desc">Gross Profit Formulations</div>
+      </div>
+      <p>To calculate true Net Profit, DMOC apportions the store's verified monthly operating overhead (rent, electricity, refrigeration, staff wages, insurance) proportionally across operational working days and sales volume:</p>
+      <div class="equation-block">
+        <div class="equation-math">Daily Operating Overhead = Monthly Operating Expenses / 30
+Allocated Overhead = Daily Operating Overhead × Holding Window (Days)
+Net Profit = Gross Profit - Allocated Overhead - Holding/Financing Costs
+Net Margin % = (Net Profit / Gross Revenue) × 100</div>
+        <div class="equation-desc">Net Bottom-Line Margin Formulations</div>
+      </div>
+
+      <h3 class="sub-heading">3.2 Inventory Reorder Point (ROP) & Safety Stock</h3>
+      <p>To prevent catastrophic stockouts during demand surges without tying up excess cash, DMOC utilizes dynamic safety stock and lead-time demand calculations:</p>
+      <div class="equation-block">
+        <div class="equation-math">Daily Sales Velocity (V_d) = (∑ Units Sold in Past N Days) / N
+Lead Time Demand = V_d × Supplier Lead Time (Days)
+Safety Stock = Z × σ_lead × √(Supplier Lead Time)
+Reorder Point (ROP) = Lead Time Demand + Safety Stock</div>
+        <div class="equation-desc">Dynamic Reorder Point & Safety Stock Formulations (Z = 1.65 for 95% service level)</div>
+      </div>
+
+      <h3 class="sub-heading">3.3 Working Capital Risk & Break-Even Quantity</h3>
+      <p>Every purchase order commits working capital that cannot be deployed elsewhere. DMOC calculates the break-even volume and capital commitment horizon:</p>
+      <div class="equation-block">
+        <div class="equation-math">Capital Committed = Proposed Order Quantity × Unit Wholesale Cost
+Contribution Margin per Unit = Unit Selling Price - Unit Purchase Cost
+Break-Even Units = ⌈ Allocated Overhead / Contribution Margin per Unit ⌉
+Days of Inventory Remaining = Current Stock on Hand / V_d</div>
+        <div class="equation-desc">Working Capital & Break-Even Formulations</div>
+      </div>
+
+      <h3 class="sub-heading">Illustrative Financial Case: 50 Units Restock Order</h3>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Financial Metric</th>
+            <th>Standard Retail Tool</th>
+            <th>DMOC Evidence Engine</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Wholesale Cost (50 × $20)</strong></td>
+            <td>$1,000.00</td>
+            <td>$1,000.00</td>
+          </tr>
+          <tr>
+            <td><strong>Gross Revenue (50 × $30)</strong></td>
+            <td>$1,500.00</td>
+            <td>$1,500.00</td>
+          </tr>
+          <tr>
+            <td><strong>Gross Profit</strong></td>
+            <td><span class="badge badge-green">$500.00 (33.3% Margin)</span></td>
+            <td><span class="badge badge-green">$500.00 (33.3% Margin)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Allocated Overhead (Rent/Power)</strong></td>
+            <td>$0.00 (Ignored)</td>
+            <td>$280.00 (Factored over 14 days)</td>
+          </tr>
+          <tr>
+            <td><strong>True Net Profit</strong></td>
+            <td>$500.00 (Misleading)</td>
+            <td><span class="badge badge-blue">$220.00 (14.7% Real Bottom Line)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <!-- ==========================================
+         PAGE 4: SYSTEM ARCHITECTURE & MONOREPO DESIGN
+         ========================================== -->
+    <article class="page-sheet" id="page-4">
+      <div class="page-badge">Page 4 of 10</div>
+
+      <h2 class="section-heading">4. System Architecture & Technology Stack</h2>
+      <p>DMOC employs a modular, high-performance TypeScript monorepo architecture with clean separation of concerns across presentation, state, computation, and data persistence.</p>
+
+      <h3 class="sub-heading">4.1 Monorepo Structural Breakdown</h3>
+      <ul>
+        <li><strong>frontend/:</strong> React 18, Vite, Tailwind CSS, @xyflow/react v12, Three.js 3D Decision Tree, Zustand state store, and responsive glassmorphism UI.</li>
+        <li><strong>backend/:</strong> Node.js 20, Express, Prisma ORM, SQLite (local development) / PostgreSQL (production cloud), Argon2id encryption, and calculation microservices.</li>
+        <li><strong>shared/:</strong> Shared TypeScript interfaces, Zod request/response validation schemas, and common mathematical type definitions.</li>
+      </ul>
+
+      <h3 class="sub-heading">4.2 Technology Stack Matrix</h3>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Layer / Subsystem</th>
+            <th>Technology</th>
+            <th>Version</th>
+            <th>Architectural Role & Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Frontend Core</strong></td>
+            <td>React + TypeScript</td>
+            <td>18.3.1</td>
+            <td>Modular component hierarchy with strict compile-time types</td>
+          </tr>
+          <tr>
+            <td><strong>Build Tooling</strong></td>
+            <td>Vite</td>
+            <td>5.4.21</td>
+            <td>Sub-second HMR and production bundle minification</td>
+          </tr>
+          <tr>
+            <td><strong>Workflow Canvas</strong></td>
+            <td>@xyflow/react</td>
+            <td>12.3.6</td>
+            <td>Visual node editor, custom handles, smooth bezier paths</td>
+          </tr>
+          <tr>
+            <td><strong>3D Visualization</strong></td>
+            <td>Three.js + R3F</td>
+            <td>0.160.0</td>
+            <td>3D hierarchical decision trees with orbital controls</td>
+          </tr>
+          <tr>
+            <td><strong>State Management</strong></td>
+            <td>Zustand + Immer</td>
+            <td>5.0.3</td>
+            <td>Reactive state, undo/redo stacks, persistent storage</td>
+          </tr>
+          <tr>
+            <td><strong>Styling & Tokens</strong></td>
+            <td>Tailwind CSS</td>
+            <td>3.4.1</td>
+            <td>Curated HSL dark/light modes and Outfit typography</td>
+          </tr>
+          <tr>
+            <td><strong>Backend Runtime</strong></td>
+            <td>Node.js + Express</td>
+            <td>20.x / 4.19</td>
+            <td>High-throughput asynchronous REST microservices</td>
+          </tr>
+          <tr>
+            <td><strong>ORM & Schema</strong></td>
+            <td>Prisma ORM</td>
+            <td>5.10.2</td>
+            <td>Type-safe database migrations and relation mapping</td>
+          </tr>
+          <tr>
+            <td><strong>Database Engine</strong></td>
+            <td>SQLite / PostgreSQL</td>
+            <td>3.x / 15+</td>
+            <td>Zero-config local storage & high-concurrency cloud DB</td>
+          </tr>
+          <tr>
+            <td><strong>Security Core</strong></td>
+            <td>Argon2id + JWT</td>
+            <td>0.40 / 9.0</td>
+            <td>Memory-hard password hashing & dual-token rotation</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub-heading">4.3 Architectural Execution Pipeline</h3>
+      <p>
+        <strong>1. Ingestion:</strong> Client queries are parsed by the Natural Language Processor, extracting business context, product entities, proposed volumes, and time horizons.<br>
+        <strong>2. Enrichment:</strong> The backend checks local store inventory. If unlisted or needing verification, it queries Open Food Facts or CDSCO registries.<br>
+        <strong>3. Multi-Path Simulation:</strong> The Inventory Decision Engine models Path A (Proposed), Path B (Status Quo), and Path C (Calibrated Optimal).<br>
+        <strong>4. Visual Graph Compilation:</strong> The simulation payload is automatically compiled into an editable directed acyclic graph (DAG) on the workflow canvas.<br>
+        <strong>5. Execution & Audit:</strong> Running the workflow evaluates topological dependencies, recording execution times and node outputs into an immutable audit ledger.
+      </p>
+    </article>
+
+    <!-- ==========================================
+         PAGE 5: DATA ARCHITECTURE & SCHEMA REFERENCE
+         ========================================== -->
+    <article class="page-sheet" id="page-5">
+      <div class="page-badge">Page 5 of 10</div>
+
+      <h2 class="section-heading">5. Data Architecture & Schema Reference</h2>
+      <p>DMOC models real-world store operations and decision science using an enterprise Prisma schema supporting multi-tenant workspace isolation and transactional integrity.</p>
+
+      <h3 class="sub-heading">5.1 Multi-Store Business & Catalog Models</h3>
+      <ul>
+        <li><strong>Business Profile:</strong> Represents a distinct store, shop, or enterprise workspace. Contains monthly revenue, fixed operating costs, currency code (INR, USD, EUR), tax percentage, and the critical <code>isSample</code> boolean flag.</li>
+        <li><strong>Product Catalog:</strong> Itemizes physical stock, SKU/barcode, category (Medicine, FMCG, Grocery), purchase cost, selling price, reorder threshold, shelf life in days, prescription requirements (Schedule H/H1), and legal price ceiling (DPCO MRP).</li>
+        <li><strong>Supplier Ledger:</strong> Tracks wholesale vendors, contact records, payment terms (Net 30, COD), lead time in days, minimum order quantity (MOQ), and reliability scoring.</li>
+        <li><strong>Stock Movements:</strong> Append-only audit trail capturing every inventory increment, customer sale, stock write-off, or return, ensuring tamper-proof stock reconciliations.</li>
+        <li><strong>Sales Ledger:</strong> Records timestamped sales transactions with unit price, discount, tax, and calculated net profit contribution.</li>
+      </ul>
+
+      <h3 class="sub-heading">5.2 Decision & Workflow Graph Models</h3>
+      <ul>
+        <li><strong>Decision:</strong> Stores the strategic decision inquiry, category (business, retail, pharmacy, financial), description, status, and deadline.</li>
+        <li><strong>Alternative:</strong> Competing choices being evaluated (e.g., 'Order 50 Packs', 'Wait 1 Week', 'Order 25 Packs').</li>
+        <li><strong>Criterion:</strong> Evaluation dimensions (e.g., 'Net Profit Margin', 'Stockout Risk', 'Holding Cost') with maximization/minimization directions and priority weights.</li>
+        <li><strong>Outcome:</strong> Quantifiable consequences attached to alternatives with probability, monetary payoff, and risk tier (low, medium, high, critical).</li>
+        <li><strong>Workflow:</strong> Defines visual flow graphs with versioning, auto-increment counters, and template references.</li>
+        <li><strong>WorkflowNode:</strong> Individual blocks on the canvas with coordinates (positionX, positionY), node type (26 types), and serialized JSON configuration.</li>
+        <li><strong>WorkflowEdge:</strong> Directed connections linking a sourceNodeId and sourceHandle to a targetNodeId and targetHandle.</li>
+        <li><strong>WorkflowRun:</strong> Execution logs capturing run timestamp, overall status (running, completed, failed), and node-by-node execution duration in milliseconds.</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Data Integrity & Isolation Guarantee</div>
+        <div class="callout-body">
+          DMOC workspaces explicitly separate sample demonstration stores (such as 'Arogya Medical Store' and 'FreshMart Grocery') from real user businesses using the <code>isSample: true</code> database flag. Sample data is clearly badged in the UI and can be deleted or reset with a single click without affecting real business ledgers.
+        </div>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         PAGE 6: NATURAL LANGUAGE WIZARD & REAL DATA INGESTION
+         ========================================== -->
+    <article class="page-sheet" id="page-6">
+      <div class="page-badge">Page 6 of 10</div>
+
+      <h2 class="section-heading">6. Natural Language Decision Wizard & Real Data Ingestion</h2>
+      <p>DMOC features an intelligent decision wizard (<code>BusinessDecisionWizard.tsx</code>) that allows non-technical store operators to submit business dilemmas in everyday plain English.</p>
+
+      <h3 class="sub-heading">6.1 The Natural Language Processing Pipeline</h3>
+      <p>When an operator types: <em>"I own a pharmacy store. Should I order 50 additional packs of Paracetamol 650mg before the weekend?"</em></p>
+      <ul>
+        <li><strong>Step 1 (Context Detection):</strong> Detects that the user operates a medical store or pharmacy.</li>
+        <li><strong>Step 2 (Entity Extraction):</strong> Extracts 'Paracetamol 650mg' as target product and '50 units' as requested replenishment.</li>
+        <li><strong>Step 3 (Temporal Horizon):</strong> Identifies 'weekend' as a 3-day high-demand sales velocity window.</li>
+        <li><strong>Step 4 (Catalog Correlation):</strong> Scans active workspace inventory. If found, loads current stock and supplier terms; if missing, initiates real-world API lookup.</li>
+      </ul>
+
+      <h3 class="sub-heading">6.2 External Data Verification & Regulatory Compliance</h3>
+      <p>To eliminate guessing, DMOC cross-references queries against official external APIs:</p>
+      <ul>
+        <li><strong>Open Food Facts API:</strong> Real-time lookup across millions of grocery and FMCG products. Retrieves barcode data, brand verification, pack sizes, ingredients, and categories.</li>
+        <li><strong>NPPA Drug Price Ceilings:</strong> Verifies medicine prices against statutory National Pharmaceutical Pricing Authority (NPPA) DPCO ceiling price caps. Prevents store owners from configuring illegal selling prices exceeding legal maximums.</li>
+        <li><strong>CDSCO Prescription Regulations:</strong> Automatically tags Schedule H and H1 prescription drugs, alerting store operators that audited medical prescription records are legally required.</li>
+      </ul>
+
+      <h3 class="sub-heading">6.3 The 3-Path Comparative Simulation Model</h3>
+      <p>The simulation engine automatically synthesizes three complete financial pathways:</p>
+
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Simulation Metric</th>
+            <th>Path A: Proposed Order</th>
+            <th>Path B: Status Quo</th>
+            <th>Path C: Calibrated Optimal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Procurement Quantity</strong></td>
+            <td>50 units (User's input)</td>
+            <td>0 units (No purchase)</td>
+            <td><span class="badge badge-blue">28 units (Optimal)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Capital Committed</strong></td>
+            <td>$1,000.00 cash outlay</td>
+            <td>$0.00 cash outlay</td>
+            <td>$560.00 minimized cash outlay</td>
+          </tr>
+          <tr>
+            <td><strong>Stockout Probability</strong></td>
+            <td>&lt; 1% (Over-stocked)</td>
+            <td><span class="badge badge-amber">88% (Exhausts by Sat)</span></td>
+            <td><span class="badge badge-green">&lt; 2% (Guaranteed)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Net Financial Margin</strong></td>
+            <td>+$220.00 net return</td>
+            <td>$0.00 ($380.00 lost)</td>
+            <td><span class="badge badge-green">+$310.00 maximized net</span></td>
+          </tr>
+          <tr>
+            <td><strong>Days of Inventory</strong></td>
+            <td>24 days of supply</td>
+            <td>1.5 days remaining</td>
+            <td>7 days (Weekend coverage)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>With one click on <strong>Convert to Visual Workflow</strong>, DMOC translates this 3-Path model into an editable decision graph on the visual canvas.</p>
+    </article>
+
+    <!-- ==========================================
+         PAGE 7: VISUAL NODE-BASED WORKFLOW CANVAS
+         ========================================== -->
+    <article class="page-sheet" id="page-7">
+      <div class="page-badge">Page 7 of 10</div>
+
+      <h2 class="section-heading">7. The Visual Node-Based Decision Workflow Canvas</h2>
+      <p>DMOC features a visual computational flow engine built on <code>@xyflow/react</code>. It allows users to wire complex, multi-variable logic using 26 modular nodes.</p>
+
+      <h3 class="sub-heading">7.1 Graph Execution & Topological Dependency Sorting</h3>
+      <ul>
+        <li><strong>Topological Dependency Sorting:</strong> The engine executes a Depth-First Search (DFS) topological sort of the Directed Acyclic Graph (DAG) before running, ensuring that parent output handles are resolved before dependent child nodes execute.</li>
+        <li><strong>Cycle Detection:</strong> Detects circular loops and notifies the user with clear node IDs, preventing infinite execution deadlocks.</li>
+        <li><strong>Dynamic Branch Pruning:</strong> When an <code>if_else</code> node evaluates to true, child nodes on the true handle execute; downstream nodes on the false branch are marked as skipped in the execution drawer.</li>
+      </ul>
+
+      <h3 class="sub-heading">7.2 Complete 26-Node Catalogue Across 7 Categories</h3>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Node Type</th>
+            <th>Category</th>
+            <th>I/O Handles</th>
+            <th>Primary Functionality</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>start_decision</code></td>
+            <td>Triggers</td>
+            <td>None &rarr; default</td>
+            <td>Pipeline entrypoint for automated decisions</td>
+          </tr>
+          <tr>
+            <td><code>manual_trigger</code></td>
+            <td>Triggers</td>
+            <td>None &rarr; default</td>
+            <td>User-initiated execution button in canvas</td>
+          </tr>
+          <tr>
+            <td><code>import_spreadsheet</code></td>
+            <td>Triggers</td>
+            <td>None &rarr; data</td>
+            <td>Parses tabular data directly from Excel (.xlsx)</td>
+          </tr>
+          <tr>
+            <td><code>existing_decision</code></td>
+            <td>Triggers</td>
+            <td>None &rarr; decision</td>
+            <td>Loads a saved decision model from the database</td>
+          </tr>
+          <tr>
+            <td><code>decision_question</code></td>
+            <td>Inputs</td>
+            <td>input &rarr; question</td>
+            <td>Formalizes the core strategic business question</td>
+          </tr>
+          <tr>
+            <td><code>alternative</code></td>
+            <td>Inputs</td>
+            <td>input &rarr; alternative</td>
+            <td>Defines candidate options (Option A vs Option B)</td>
+          </tr>
+          <tr>
+            <td><code>define_criteria</code></td>
+            <td>Inputs</td>
+            <td>input &rarr; criteria</td>
+            <td>Configures evaluation metrics and directions</td>
+          </tr>
+          <tr>
+            <td><code>set_criteria_weights</code></td>
+            <td>Inputs</td>
+            <td>criteria &rarr; weights</td>
+            <td>Sliders assigning relative percentage weights</td>
+          </tr>
+          <tr>
+            <td><code>define_constraints</code></td>
+            <td>Inputs</td>
+            <td>input &rarr; constraints</td>
+            <td>Hard boundaries (budget ceiling, regulatory caps)</td>
+          </tr>
+          <tr>
+            <td><code>set_assumptions</code></td>
+            <td>Inputs</td>
+            <td>input &rarr; assumptions</td>
+            <td>Baseline conditions (inflation, currency rates)</td>
+          </tr>
+          <tr>
+            <td><code>if_else</code></td>
+            <td>Logic</td>
+            <td>condition &rarr; true, false</td>
+            <td>Conditional branching via boolean expressions</td>
+          </tr>
+          <tr>
+            <td><code>compare_values</code></td>
+            <td>Logic</td>
+            <td>left, right &rarr; result</td>
+            <td>Relational comparison (==, !=, &gt;, &lt;, &gt;=, &lt;=)</td>
+          </tr>
+          <tr>
+            <td><code>threshold_check</code></td>
+            <td>Logic</td>
+            <td>value &rarr; result</td>
+            <td>Triggers warning alerts on critical limit breach</td>
+          </tr>
+          <tr>
+            <td><code>and_or_conditions</code></td>
+            <td>Logic</td>
+            <td>conditions &rarr; result</td>
+            <td>Multi-gate logical boolean evaluations</td>
+          </tr>
+          <tr>
+            <td><code>filter_alternatives</code></td>
+            <td>Logic</td>
+            <td>alternatives &rarr; filtered</td>
+            <td>Excludes options violating hard constraints</td>
+          </tr>
+          <tr>
+            <td><code>merge_branches</code></td>
+            <td>Logic</td>
+            <td>branch1..3 &rarr; merged</td>
+            <td>Converges parallel flows into unified pipe</td>
+          </tr>
+          <tr>
+            <td><code>possible_outcome</code></td>
+            <td>Outcomes</td>
+            <td>input &rarr; outcome</td>
+            <td>Attaches discrete consequences to options</td>
+          </tr>
+          <tr>
+            <td><code>probability</code></td>
+            <td>Outcomes</td>
+            <td>input &rarr; probability</td>
+            <td>Explicit decimal likelihood between 0 and 1.0</td>
+          </tr>
+          <tr>
+            <td><code>cost</code></td>
+            <td>Outcomes</td>
+            <td>input &rarr; cost</td>
+            <td>Models financial wholesale cost or penalty</td>
+          </tr>
+          <tr>
+            <td><code>benefit</code></td>
+            <td>Outcomes</td>
+            <td>input &rarr; benefit</td>
+            <td>Projects revenue upside or utility score</td>
+          </tr>
+          <tr>
+            <td><code>risk_assessment</code></td>
+            <td>Outcomes</td>
+            <td>input &rarr; risk</td>
+            <td>Qualitative risk tiering (low, med, high, crit)</td>
+          </tr>
+          <tr>
+            <td><code>time_estimate</code></td>
+            <td>Outcomes</td>
+            <td>input &rarr; time</td>
+            <td>Duration for delivery, shelf life, lead time</td>
+          </tr>
+          <tr>
+            <td><code>custom_metric</code></td>
+            <td>Outcomes</td>
+            <td>input &rarr; metric</td>
+            <td>Bespoke KPIs (Customer Loyalty, NPS)</td>
+          </tr>
+          <tr>
+            <td><code>weighted_score</code></td>
+            <td>Calculations</td>
+            <td>criteria &rarr; score</td>
+            <td>Multi-Criteria Decision Analysis (MCDA)</td>
+          </tr>
+          <tr>
+            <td><code>expected_monetary_value</code></td>
+            <td>Calculations</td>
+            <td>outcomes &rarr; emv</td>
+            <td>Probability-weighted EMV calculations</td>
+          </tr>
+          <tr>
+            <td><code>monte_carlo</code></td>
+            <td>Calculations</td>
+            <td>distributions &rarr; results</td>
+            <td>10,000-run stochastic risk simulation</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <!-- ==========================================
+         PAGE 8: STORE OPERATIONS & DECISION SUITE
+         ========================================== -->
+    <article class="page-sheet" id="page-8">
+      <div class="page-badge">Page 8 of 10</div>
+
+      <h2 class="section-heading">8. Store Operations & Decision Suite</h2>
+      <p>DMOC bridges high-level decision theory with everyday shopfloor operations, providing live inventory visibility, supplier terms, and spatial 3D visualization.</p>
+
+      <h3 class="sub-heading">8.1 Inventory & Catalog Operations</h3>
+      <ul>
+        <li><strong>Batch & Expiry Monitoring:</strong> Tracks batches and shelf-life horizons. Perishable grocery and pharmaceutical items expiring within 30 days display prominent yellow warning badges; items expiring within 7 days trigger red markdown alerts.</li>
+        <li><strong>Stock Level Tracking:</strong> Tracks real-time stock on hand against minimum reorder points. Highlights cash tied up in dead stock.</li>
+        <li><strong>Stock Movement Audit:</strong> Complete ledger recording stock receipts, customer sales, supplier returns, and write-offs.</li>
+      </ul>
+
+      <h3 class="sub-heading">8.2 Supplier Management & Terms</h3>
+      <ul>
+        <li><strong>Vendor Directory:</strong> Records vendor name, contact person, phone, email, and catalog mappings.</li>
+        <li><strong>Lead-Time Tracking:</strong> Incorporates supplier lead times (in days) into dynamic reorder point calculations.</li>
+        <li><strong>Commercial Terms:</strong> Models payment terms (Net 30, Net 60, Cash on Delivery) to project cash outflow schedules.</li>
+        <li><strong>MOQ & Volume Tiers:</strong> Evaluates supplier minimum order quantities (MOQ) and volume discounts during restock evaluations.</li>
+      </ul>
+
+      <h3 class="sub-heading">8.3 Interactive 3D Decision Tree & 2D Fallback</h3>
+      <p>DMOC provides dual visualization interfaces for inspecting complex decision hierarchies:</p>
+      <ul>
+        <li><strong>Interactive 3D Spatial Tree:</strong> Constructed using Three.js and React Three Fiber. Visualizes the decision problem as a spatial node-and-link tree with orbital camera controls, mousewheel zooming, color-coded risk paths, and click-to-inspect modals.</li>
+        <li><strong>Resilient 2D Canvas Fallback:</strong> Engineered in pure SVG for ultra-low latency on mobile devices or environments where WebGL is unavailable or disabled.</li>
+      </ul>
+
+      <div class="callout callout-blue">
+        <div class="callout-title">Visualization Resilience Guarantee</div>
+        <div class="callout-body">
+          DMOC's 3D and 2D decision tree engines render the exact same underlying mathematical tree hierarchy. Switching between modes preserves selected node states and calculation outputs instantly.
+        </div>
+      </div>
+    </article>
+
+    <!-- ==========================================
+         PAGE 9: RESTFUL API ENDPOINT REFERENCE
+         ========================================== -->
+    <article class="page-sheet" id="page-9">
+      <div class="page-badge">Page 9 of 10</div>
+
+      <h2 class="section-heading">9. Comprehensive RESTful API Reference</h2>
+      <p>All DMOC backend endpoints are versioned under <code>/api</code> and return structured JSON responses adhering to standardized success/error schemas.</p>
+
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Endpoint Route</th>
+            <th>Access Level</th>
+            <th>Action / Data Returned</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/auth/register</code></td>
+            <td>Public</td>
+            <td>Register user account (Argon2id hashing)</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/auth/login</code></td>
+            <td>Public</td>
+            <td>Authenticates user; sets JWT cookie & token</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/auth/logout</code></td>
+            <td>Authenticated</td>
+            <td>Revokes session and clears secure cookie</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">GET</span></td>
+            <td><code>/api/businesses</code></td>
+            <td>Authenticated</td>
+            <td>Lists all workspaces belonging to user</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/businesses</code></td>
+            <td>Authenticated</td>
+            <td>Creates a new business workspace profile</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">GET</span></td>
+            <td><code>/api/businesses/:id/kpis</code></td>
+            <td>Authenticated</td>
+            <td>Calculates live revenue, net profit, stockouts</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">GET</span></td>
+            <td><code>/api/products</code></td>
+            <td>Authenticated</td>
+            <td>Lists store catalog with category/stock filters</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/products</code></td>
+            <td>Authenticated</td>
+            <td>Adds new SKU with pricing and shelf life</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">GET</span></td>
+            <td><code>/api/products/search-enrichment</code></td>
+            <td>Authenticated</td>
+            <td>Queries Open Food Facts & NPPA DPCO APIs</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/inventory/movements</code></td>
+            <td>Authenticated</td>
+            <td>Logs inventory receipt, write-off, or audit</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">GET</span></td>
+            <td><code>/api/suppliers</code></td>
+            <td>Authenticated</td>
+            <td>Lists suppliers, lead times, and payment terms</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/inventory-decisions/evaluate</code></td>
+            <td>Authenticated</td>
+            <td>Evaluates NLP restock inquiry (3-Path Model)</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/simulations/run</code></td>
+            <td>Authenticated</td>
+            <td>Runs 10,000-iteration Monte Carlo simulation</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">GET</span></td>
+            <td><code>/api/workflows</code></td>
+            <td>Authenticated</td>
+            <td>Retrieves all visual decision workflows</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/workflows</code></td>
+            <td>Authenticated</td>
+            <td>Creates a new decision flow graph</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">POST</span></td>
+            <td><code>/api/workflows/:id/run</code></td>
+            <td>Authenticated</td>
+            <td>Executes DAG workflow; returns node logs</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-green">GET</span></td>
+            <td><code>/api/import-export/template</code></td>
+            <td>Authenticated</td>
+            <td>Downloads standard dmoc-template.xlsx</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="sub-heading">9.2 Security & Authentication Protocols</h3>
+      <ul>
+        <li><strong>Argon2id Password Encryption:</strong> All passwords are salted and hashed using Argon2id with 64MB memory cost, 3 iterations, and 4 threads, providing high resistance against GPU and ASIC brute-force attacks.</li>
+        <li><strong>Dual-Token Rotation:</strong> Dual-token system using short-lived JWT access tokens (15-minute expiration) and cryptographically signed refresh tokens stored in secure, SameSite=Lax, HttpOnly cookies.</li>
+        <li><strong>Immutable Audit Logging:</strong> Every workspace update, inventory write-off, and workflow run creates an append-only entry in the <code>AuditEvent</code> database table.</li>
+      </ul>
+    </article>
+
+    <!-- ==========================================
+         PAGE 10: USER OPERATING MANUAL, DEPLOYMENT & FAQ
+         ========================================== -->
+    <article class="page-sheet" id="page-10">
+      <div class="page-badge">Page 10 of 10</div>
+
+      <h2 class="section-heading">10. End-to-End User Operating Manual & Deployment</h2>
+      
+      <h3 class="sub-heading">10.1 Step-by-Step Walkthrough Guide</h3>
+      <ul>
+        <li><strong>Step 1: Onboarding Your Store:</strong> Visit the DMOC homepage and click 'Get Started'. Complete the 4-step onboarding modal: (1) Business Name & Type, (2) Currency & Tax Rate, (3) Monthly Turnover & Operating Costs, and (4) Optional Sample Data Seeding.</li>
+        <li><strong>Step 2: Switching Store Workspaces:</strong> Use the Workspace Selector dropdown in the top sidebar to toggle between different store locations or demo profiles seamlessly.</li>
+        <li><strong>Step 3: Running Natural Language Decisions:</strong> Navigate to the 'Decision Wizard'. Enter your dilemma in everyday language (e.g., 'Should I order 40 units of Almond Milk before Friday?'). Click 'Analyze Business Decision'.</li>
+        <li><strong>Step 4: Evaluating the 3-Path Model:</strong> Compare Path A (Full Order), Path B (Do Nothing), and Path C (Calibrated Optimal). Inspect capital committed, stockout probability, and true net profit.</li>
+        <li><strong>Step 5: Visual Workflow Customization:</strong> Click 'Convert to Visual Workflow'. Drag additional logic nodes (e.g., 'If/Else' or 'Threshold Check') onto the canvas. Click 'Run Flow' to execute real-time DAG simulation.</li>
+        <li><strong>Step 6: Generating Executive Briefs & Reports:</strong> Visit the 'Reports' page to review the DMOC Executive Brief. Click 'Print / Save as PDF' for executive physical documentation, or download complete Excel data books from Settings.</li>
+      </ul>
+
+      <h3 class="sub-heading">10.2 Production Deployment (Docker Compose)</h3>
+      <p>Deploying DMOC in a production cloud environment requires Docker and Docker Compose. Run:</p>
+      <div class="equation-block">
+        <div class="equation-math">git clone https://github.com/hardik33217/DMOC.git
+cd DMOC
+docker-compose up -d --build</div>
+        <div class="equation-desc">Unified Multi-Container Production Command</div>
+      </div>
+
+      <h3 class="sub-heading">10.3 Frequently Asked Questions (FAQ)</h3>
+      <ul>
+        <li><strong>Q: Can DMOC operate without an active internet connection?</strong><br>A: Yes. DMOC functions fully on local SQLite or offline PostgreSQL. External API queries queue automatically until connectivity is restored.</li>
+        <li><strong>Q: Does DMOC monetize or share private sales figures?</strong><br>A: Never. DMOC enforces strict tenant isolation. All business turnover, margins, and catalog records belong exclusively to your instance and are never shared.</li>
+        <li><strong>Q: How does DMOC prevent stockouts during sudden demand surges?</strong><br>A: DMOC integrates seasonal velocity multipliers, lead-time variance buffers, and safety stock calculations to increase reorder points ahead of anticipated trading rushes.</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Document Ratification</div>
+        <div class="callout-body">
+          <strong>DMOC: Decision Marketing Operating System</strong><br>
+          Version 3.0.0 • Complete System Architectural Report & User Operating Manual<br>
+          Engineered by the DMOC Core Engineering & Decision Science Team • October 2026
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+</body>
+</html>
