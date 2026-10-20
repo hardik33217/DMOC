@@ -33,8 +33,8 @@ Modern decision-making in personal careers, enterprise resource allocation, corp
 2. **Analysis Paralysis**: When faced with multi-dimensional criteria (e.g., compensation, culture, career growth, location) or probabilistic uncertainty (market downturns, IPO probabilities), decision-makers struggle to synthesize conflicting trade-offs.
 3. **Black-Box Spreadsheets**: Traditional decision matrices in Excel are brittle, static, lack explainability, and cannot simulate stochastic risks over time.
 
-### 1.2 The Mission of DecisionOS
-**DecisionOS** is an intelligent decision modeling and workflow simulation operating system. Its core purpose is to:
+### 1.2 The Mission of DMOC
+**DMOC** (Decision Marketing Operating System) is an intelligent decision modeling and workflow simulation operating system. Its core purpose is to:
 - **Democratize Decision Science**: Translate sophisticated mathematical decision frameworks (MCDA, Expected Monetary Value, Expected Utility Theory, Monte Carlo simulation, Sensitivity Analysis) into an intuitive, visual medium.
 - **Provide Visual Node-Based Programming**: Empower users to build reactive decision graphs inspired by n8n, Node-RED, and professional computational flow engines.
 - **Deliver Explainable Intelligence**: Transform abstract numbers into auditable reasoning chains, interactive 3D visualizations, and executive briefings.
@@ -43,13 +43,13 @@ Modern decision-making in personal careers, enterprise resource allocation, corp
 
 ## 2. Theoretical Foundations & Decision Science
 
-DecisionOS is built upon verified mathematical and statistical methodologies implemented in `backend/src/services/decisionEngine.ts`.
+DMOC is built upon verified mathematical and statistical methodologies implemented in `backend/src/services/decisionEngine.ts`.
 
 ### 2.1 Multi-Criteria Decision Analysis (MCDA)
 Multi-Criteria Decision Analysis evaluates competing alternatives across multiple orthogonal criteria, each assigned a relative priority weight $w_j$ such that $\sum_{j=1}^m w_j = 100\%$.
 
 #### 1. Linear Normalization
-Criteria can be either **maximization** (e.g., revenue, career growth) or **minimization** (e.g., commute time, operational risk, cost). DecisionOS normalizes disparate units (dollars, hours, 1-10 ratings) into dimensionless utility values $r_{ij} \in [0, 1]$:
+Criteria can be either **maximization** (e.g., revenue, career growth) or **minimization** (e.g., commute time, operational risk, cost). DMOC normalizes disparate units (dollars, hours, 1-10 ratings) into dimensionless utility values $r_{ij} \in [0, 1]$:
 
 $$\text{For Maximization: } r_{ij} = \frac{x_{ij} - x_j^{\min}}{x_j^{\max} - x_j^{\min}}$$
 
@@ -67,30 +67,30 @@ Under conditions of risk with discrete states of nature, each alternative $i$ pr
 
 $$\text{EMV}_i = \sum_{k=1}^K P(O_{ik}) \cdot X_{ik} \quad \text{where } \sum_{k=1}^K P(O_{ik}) = 1.0$$
 
-DecisionOS calculates the EMV spread across alternatives to establish optimal risk-adjusted financial payoffs.
+DMOC calculates the EMV spread across alternatives to establish optimal risk-adjusted financial payoffs.
 
 ### 2.3 Expected Utility Theory (von Neumann–Morgenstern)
-Monetary value is not linear with psychological satisfaction due to risk aversion. For non-linear risk tolerances, DecisionOS maps monetary payoffs or ratings to utility scores $U(O_{ik}) \in [0, 100]$:
+Monetary value is not linear with psychological satisfaction due to risk aversion. For non-linear risk tolerances, DMOC maps monetary payoffs or ratings to utility scores $U(O_{ik}) \in [0, 100]$:
 
 $$\text{EU}_i = \sum_{k=1}^K P(O_{ik}) \cdot U(O_{ik})$$
 
 ### 2.4 Monte Carlo Stochastic Simulation
-Real-world variables are rarely point estimates. DecisionOS implements a pseudo-random Monte Carlo engine generating up to **10,000 iterations** per alternative:
+Real-world variables are rarely point estimates. DMOC implements a pseudo-random Monte Carlo engine generating up to **10,000 iterations** per alternative:
 - Samples probability distributions for outcomes.
 - Calculates empirical percentiles: $P_{10}$ (pessimistic downside), $P_{50}$ (median expectation), and $P_{90}$ (optimistic upside).
 - Computes mean expected return $\mu$, variance $\sigma^2$, and standard deviation $\sigma$.
 
 ### 2.5 Sensitivity Analysis & Critical Thresholds
-DecisionOS systematically perturbs individual criterion weights $w_j$ from $0\%$ to $100\%$ while proportionately scaling other weights. It identifies **tipping points**—the exact weight threshold where the leading recommendation switches to another alternative.
+DMOC systematically perturbs individual criterion weights $w_j$ from $0\%$ to $100\%$ while proportionately scaling other weights. It identifies **tipping points**—the exact weight threshold where the leading recommendation switches to another alternative.
 
 ---
 
 ## 3. System Architecture & Technology Stack
 
-DecisionOS employs a high-performance TypeScript monorepo architecture with clean separation of concerns.
+DMOC employs a high-performance TypeScript monorepo architecture with clean separation of concerns.
 
 ```
-decisionos/
+DMOC/
 ├── backend/                 # Node.js + Express + Prisma + SQLite/PostgreSQL
 │   ├── prisma/             # Schema, migrations & comprehensive seed templates
 │   ├── src/
@@ -235,7 +235,7 @@ npm run dev
 
 ## 8. Business Decision Intelligence (Retail, Pharmacy, Grocery, Quick-Commerce & Startups)
 
-DecisionOS 2.5 introduces a comprehensive business decision intelligence suite explicitly tailored for physical retail stores, pharmacies, grocery shops, quick-commerce operators, startups, and business students.
+DMOC 3.0 introduces a comprehensive business decision intelligence suite explicitly tailored for physical retail stores, pharmacies, grocery shops, quick-commerce operators, startups, and business students.
 
 ### 8.1 Business Onboarding & Multi-Workspace Architecture
 - **Onboarding Wizard**: Prompts store owners for business type, operational status (existing vs. planned), geographic location, product categories, local currency/taxes, and operating overheads.
@@ -245,7 +245,7 @@ DecisionOS 2.5 introduces a comprehensive business decision intelligence suite e
 ### 8.2 Real Product Search & Provenance
 - **Open Food Facts API**: Live barcode and brand search for grocery items with attribution and license compliance.
 - **NPPA DPCO & CDSCO Drug Database**: Official pricing ceiling guidelines and Schedule H/H1 prescription compliance for licensed Indian pharmacies.
-- **Non-Medical Disclaimer**: DecisionOS evaluates lawful business inventory purchasing and storage decisions only. It does not provide medical treatment advice.
+- **Non-Medical Disclaimer**: DMOC evaluates lawful business inventory purchasing and storage decisions only. It does not provide medical treatment advice.
 - **Field-Level Verification Badges**: Confirms exact barcode matches vs. fuzzy matches, displaying provider provenance and source URLs.
 
 ### 8.3 Product & Inventory Management
@@ -292,4 +292,4 @@ Added to the visual workflow canvas under the **Business** category:
 - Supports printable layouts, PDF generation, and Excel exports.
 
 ---
-*DecisionOS — Know the risk. Understand the opportunity. Decide with evidence.*
+*DMOC — Know the risk. Understand the opportunity. Decide with evidence.*
